@@ -1,0 +1,29 @@
+<html lang="en" xml:lang="en">
+<head>
+  <title>Login form</title>
+  <link rel="stylesheet" href="style.css"></link>
+</head>
+<body class="login">
+  <div>
+    <div>
+      <form method="POST" enctype="application/x-www-form-urlencoded" action="identityExtraction">
+        <h1>Please sign in</h1>
+        <p>Username :<input type="text" name="username" required="required" /></p>
+        <p>Password : <input type="password" name="password" required="required" /></p>
+        <EI-INJECT-HIDDEN-INPUT-FIELDS/>
+        <div>
+          <p><button id="login_button" type="submit" name="login" value="true">Log in</button> </p>
+        </div>
+      </form>
+    </div>
+    <EI-LOGINFIRSTTIME>
+      <p>If you have forgotten your user name or password, contact your system administrator.</p>
+    </EI-LOGINFIRSTTIME>
+    <EI-LOGINFAILED>
+      <p style="color: red">At least one of your entries does not match our records. If you have forgotten your user name or password, contact
+        your system administrator.</p>
+    </EI-LOGINFAILED>
+    <EI-INTERNAL-CUSTOM-FORM-ERROR/>
+  </div>
+</body>
+</html>

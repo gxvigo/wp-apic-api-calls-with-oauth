@@ -1,0 +1,17 @@
+{
+    "_comment0": "apic platform details below",
+    "apicDataPowerGatewayHostname": "api.think.ibm",
+    "apicProviderOrganization": "sales",
+    "apicCatalog": "sb",
+
+    "_comment1": "application & oauth API provider parameters",
+    "clientID": "ab9b3671-bfb0-4d08-b954-f00693a69c75",
+    "secret": "xX0aI6nQ4qN8cE2jD8wF3vC0xN5mL4oI3bO2pE2yE2tN4eC7eR",
+    "appOauthRedirectionURL": "http://192.168.225.1:3080/clientOAuthRedirectionURL",
+    "oauthScope": "view_branches",
+    "oauthResponseType": "code",
+    
+    "_comment2": "OAuth API provider parameters",
+    "oauthApiProviderAuthorizationPath": "/oauth-end/oauth2/authorize",
+    "oauthApiProviderTokenPath": "/oauth-end/oauth2/token"
+}

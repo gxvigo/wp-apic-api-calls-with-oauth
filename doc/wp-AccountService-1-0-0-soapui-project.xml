@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="16fc6591-e645-445e-9acc-62bde3684c7d" activeEnvironment="Default" name="wp-AccountService_1.0.0" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="facb5780-9b29-4518-a7ee-9f64706af0cc" wsaVersion="NONE" name="AccountServiceSoapBinding" type="wsdl" bindingName="{http://bankA.sample.ibm.com/}AccountServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/Users/giovanni/Downloads/wp-AccountService_1.0.0.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/Users/giovanni/Downloads/wp-AccountService_1.0.0.wsdl"><con:part><con:url>file:/Users/giovanni/Downloads/wp-AccountService_1.0.0.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="AccountService" targetNamespace="http://bankA.sample.ibm.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://bankA.sample.ibm.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://bankA.sample.ibm.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getBalance" type="tns:getBalance"/>
+      <xs:element name="getBalanceResponse" type="tns:getBalanceResponse"/>
+      <xs:complexType name="getBalance">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBalanceResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getBalanceResponse">
+    <wsdl:part element="tns:getBalanceResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBalance">
+    <wsdl:part element="tns:getBalance" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Account">
+    <wsdl:operation name="getBalance">
+      <wsdl:input message="tns:getBalance" name="getBalance"></wsdl:input>
+      <wsdl:output message="tns:getBalanceResponse" name="getBalanceResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccountServiceSoapBinding" type="tns:Account">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getBalance">
+      <soap:operation soapAction="getBalance" style="document"/>
+      <wsdl:input name="getBalance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBalanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountService">
+    <wsdl:port binding="tns:AccountServiceSoapBinding" name="AccountPort">
+      <soap:address location="https://api.think.ibm/sales/sb/AccountService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://api.think.ibm/sales/sb/AccountService</con:endpoint></con:endpoints><con:operation id="690005bc-31dc-4b5d-88af-650d90ad4798" isOneWay="false" action="getBalance" name="getBalance" bindingOperationName="getBalance" type="Request-Response" outputName="getBalanceResponse" inputName="getBalance" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="556a292b-2085-45ce-8dd7-9546dfb82418" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-ibm-client-id" value="e220c8a4-0eba-4a8f-9657-50b982f5f47a" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://api.think.ibm/sales/sb/AccountService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ban="http://bankA.sample.ibm.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ban:getBalance>
+         <arg0>?</arg0>
+      </ban:getBalance>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="getBalance"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
