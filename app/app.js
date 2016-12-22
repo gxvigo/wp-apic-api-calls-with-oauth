@@ -196,7 +196,7 @@ router.get('/soapClient', function (req, res) {
             } else {
                 SOAPRequestCallback(result);
                 console.log(result);
-            } 
+            }  
         });
     });  
 
