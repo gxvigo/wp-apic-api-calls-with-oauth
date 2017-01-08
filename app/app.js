@@ -107,6 +107,11 @@ router.get('/authenticateUser', function (req, res) {
         // here code to validate username and code
 
         console.log('### /authenticateUser - User: ' + username + ' , confirmation: ' + confirmation);
+
+        // setting header for OAuth metadata test
+        res.setHeader('API-OAUTH-METADATA-FOR-ACCESSTOKEN', '{"mobileNo":"TradeMe","SelectedAccount":"0305020339928000"}');
+
+        console.log('### /authenticateUser - HTTP 200 sent');
         res.status(200).send('OK') // Always validate the user and code
     } 
 })
@@ -134,7 +139,7 @@ router.get('/clientOAuthRedirectionURL', function (req, res) {
     var secretEncoded = new Buffer(':' + appParameters.secret).toString('base64');
     var authorizationHeaderEncoded = 'Basic ' + clientIdEncoded + secretEncoded;
     // console.log('### /clientOAuthRedirectionURL -  authorizationHeaderEncoded base64: ' + authorizationHeaderEncoded);
-    
+
     request({
         headers: {
             'Authorization': authorizationHeaderEncoded,
@@ -156,9 +161,27 @@ router.get('/clientOAuthRedirectionURL', function (req, res) {
             var oauthTokenObj = JSON.parse(body);
             console.log('### /clientOAuthRedirectionURL - OAuth token_type: ' + oauthTokenObj.token_type);
             console.log('### /clientOAuthRedirectionURL - OAuth access_token: ' + oauthTokenObj.access_token);
+
+            // // API resource (end point) call - start
+
+            // var apiCalliOptions = { method: 'GET',
+            //                 url: 'https://api.think.ibm/sales/sb/branches-cac/details',
+            //                 headers: 
+            //                     { accept: 'application/json',
+            //                         'content-type': 'application/json',
+            //                         authorization: oauthTokenObj.token_type + ' ' +  oauthTokenObj.access_token} 
+            //                 };
+            // console.log('### /clientOAuthRedirectionURL - apiCalliOptions: ' +  JSON.stringify(apiCalliOptions));
+
+            // request(apiCalliOptions, function (apiCallErr, apiCallResponse, ApiCallBody) {
+            // if (apiCallErr) return console.error('Failed: %s', apiCallErr.message);
+
+            // console.log('### /clientOAuthRedirectionURL - API Call Success: ' + ApiCallBody);
+            // });
+            // // API resource (end point) call - start
+
         }
     });
-
 
     res.status(200).send({ message: 'Operaction completed' });
 })

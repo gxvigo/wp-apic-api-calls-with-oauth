@@ -5,8 +5,8 @@
     "apicCatalog": "sb",
 
     "_comment1": "application & oauth API provider parameters",
-    "clientID": "ab9b3671-bfb0-4d08-b954-f00693a69c75",
-    "secret": "xX0aI6nQ4qN8cE2jD8wF3vC0xN5mL4oI3bO2pE2yE2tN4eC7eR",
+    "clientID": "e220c8a4-0eba-4a8f-9657-50b982f5f47a",
+    "secret": "P3kJ0hO3iL0iQ5vI8gE0lV1aR0eG6jW5bU7cU2eL2oI6uF5rG7",
     "appOauthRedirectionURL": "http://192.168.225.1:3080/clientOAuthRedirectionURL",
     "oauthScope": "view_branches",
     "oauthResponseType": "code",
