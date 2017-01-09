@@ -112,7 +112,7 @@ router.get('/authenticateUser', function (req, res) {
         res.setHeader('API-OAUTH-METADATA-FOR-ACCESSTOKEN', '{"mobileNo":"TradeMe","SelectedAccount":"0305020339928000"}');
 
         console.log('### /authenticateUser - HTTP 200 sent');
-        res.status(200).send('OK') // Always validate the user and code
+        res.status(200).send('OK'); // Always validate the user and code
     } 
 })
 
@@ -140,50 +140,56 @@ router.get('/clientOAuthRedirectionURL', function (req, res) {
     var authorizationHeaderEncoded = 'Basic ' + clientIdEncoded + secretEncoded;
     // console.log('### /clientOAuthRedirectionURL -  authorizationHeaderEncoded base64: ' + authorizationHeaderEncoded);
 
-    request({
+    var tokenReqOptions = {
         headers: {
             'Authorization': authorizationHeaderEncoded,
             'Content-Length': contentLength,
             'Content-Type': 'application/x-www-form-urlencoded'
-        },
+            },
         uri: 'https://api.think.ibm/sales/sb/oauth-end/oauth2/token',
         body: formData,
         method: 'POST'
-    }, function (err, res, body) {
-        if (err){ 
-            console.log('### /clientOAuthRedirectionURL - OAuth token request failed, err: ' + err);
+    };
+    request(tokenReqOptions, function (tokenErr, tokenRes, tokenBody) {
+        if (tokenErr){ 
+            console.log('### /clientOAuthRedirectionURL - OAuth token request failed, err: ' + tokenErr);
         } else {
-            // console.log('### /clientOAuthRedirectionURL - OAuth token request success, body: ' + body);
+            // console.log('### /clientOAuthRedirectionURL - OAuth token request success, tokenBody: ' + tokenBody);
             /*
-            Example response body:
+            Example response tokenBody:
             { "token_type":"bearer", "access_token":"AAEkYWI5YjM2NzEtYmZiMC00ZDA4LWI5NTQtZjAwNjkzYTY5Yzc1gxewf3AA2axCbRecHj6IMdG0KYivSBsS7TSUqsbHujpOG6fNmiHx6fUViVuVjVaGq0E7-WVyuaKe1TorDWDvyw", "expires_in":3600, "scope":"view_branches" }
             */
-            var oauthTokenObj = JSON.parse(body);
+            var oauthTokenObj = JSON.parse(tokenBody);
             console.log('### /clientOAuthRedirectionURL - OAuth token_type: ' + oauthTokenObj.token_type);
             console.log('### /clientOAuthRedirectionURL - OAuth access_token: ' + oauthTokenObj.access_token);
 
-            // // API resource (end point) call - start
+            // API resource (end point) call - start
+            var apiCalliOptions = { method: 'GET',
+                            url: 'https://api.think.ibm/sales/sb/branches-cac/details',
+                            headers: 
+                                { accept: 'application/json',
+                                    'content-type': 'application/json',
+                                    'X-IBM-Client-Id': appParameters.clientID, 
+                                    // 'authorization': oauthTokenObj.token_type + ' ' +  oauthTokenObj.access_token} 
+                                    'Authorization': 'Bearer'+ ' ' +  oauthTokenObj.access_token}
+                            };
+            console.log('### /clientOAuthRedirectionURL - apiCalliOptions: ' +  JSON.stringify(apiCalliOptions));
 
-            // var apiCalliOptions = { method: 'GET',
-            //                 url: 'https://api.think.ibm/sales/sb/branches-cac/details',
-            //                 headers: 
-            //                     { accept: 'application/json',
-            //                         'content-type': 'application/json',
-            //                         authorization: oauthTokenObj.token_type + ' ' +  oauthTokenObj.access_token} 
-            //                 };
-            // console.log('### /clientOAuthRedirectionURL - apiCalliOptions: ' +  JSON.stringify(apiCalliOptions));
+            request(apiCalliOptions, function (apiCallErr, apiCallResponse, ApiCallBody) {
+                if (apiCallErr) return console.error('Failed: %s', apiCallErr.message);
 
-            // request(apiCalliOptions, function (apiCallErr, apiCallResponse, ApiCallBody) {
-            // if (apiCallErr) return console.error('Failed: %s', apiCallErr.message);
+                console.log('### /clientOAuthRedirectionURL - API Call Success: ' + ApiCallBody);
+                //send back response to index.html
+                res.setHeader('content-type', 'application/json');
+                res.send(ApiCallBody);
+            });
 
-            // console.log('### /clientOAuthRedirectionURL - API Call Success: ' + ApiCallBody);
-            // });
-            // // API resource (end point) call - start
+            // API resource (end point) call - start
 
         }
     });
 
-    res.status(200).send({ message: 'Operaction completed' });
+    // res.status(200).send({ message: 'Operaction completed' });
 })
 
 

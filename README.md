@@ -27,7 +27,7 @@ Environment and application details are defined in paramaters.json file
 
 
 # This project works with APIs from the repo below:
-https://github.com/gxvigo/apic-oauthTutorial-apis
+https://github.com/gxvigo/wp-apic-api-definitions-with-oauth
 
 ## Documentation
 - OAuth2 api defintion: ./doc/APIC_OAuth2_api_definition.jpg
