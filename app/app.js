@@ -243,3 +243,11 @@ var server = app.listen(app.get('port'), function () {
     console.log('Web server listening on port ' + app.get('port'));
     console.log('Resource: /authenticate : authentication URL, always return 200 unless username \"wrong\" is used in basic authentication');
 });
+
+/* automatically open /index.html in Chrome (it fails on Windows or if Chrome is installed in
+ *  in a different path. Delete , '/Applications/Google\ Chrome.app' to use default browser)
+ * */
+open('http://localhost:3080/index.html', '/Applications/Google\ Chrome.app', function (err) {
+  if (err) throw err;
+  console.log('The user closed the browser');
+});
