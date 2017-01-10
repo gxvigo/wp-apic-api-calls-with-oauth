@@ -11,6 +11,8 @@ var router = express.Router();  // get instance for express Router
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; // to solve DEPTH_ZERO_SELF_SIGNED_CERT error in CallbackToAPIC
 
+var API_GW_URL = `https://${appParameters.apicDataPowerGatewayHostname}/${appParameters.apicProviderOrganization}/${appParameters.apicCatalog}`;
+
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -146,7 +148,7 @@ router.get('/clientOAuthRedirectionURL', function (req, res) {
             'Content-Length': contentLength,
             'Content-Type': 'application/x-www-form-urlencoded'
             },
-        uri: 'https://api.think.ibm/sales/sb/oauth-end/oauth2/token',
+        uri: API_GW_URL + '/oauth-end/oauth2/token',
         body: formData,
         method: 'POST'
     };
@@ -165,7 +167,7 @@ router.get('/clientOAuthRedirectionURL', function (req, res) {
 
             // API resource (end point) call - start
             var apiCalliOptions = { method: 'GET',
-                            url: 'https://api.think.ibm/sales/sb/branches-cac/details',
+                            url: API_GW_URL + '/branches-cac/details',
                             headers: 
                                 { accept: 'application/json',
                                     'content-type': 'application/json',
@@ -212,7 +214,7 @@ router.get('/soapClient', function (req, res) {
     var url = "http://www.restfulwebservices.net/wcf/StockQuoteService.svc?wsdl";
     var args = { "tns:request": "IBM" };
     var options = {
-        endpoint: "https://api.think.ibm/sales/sb/StockQuoteService",
+        endpoint: API_GW_URL + "/StockQuoteService",
     };
 
     soap.createClient(url, options, function (err, client) {
